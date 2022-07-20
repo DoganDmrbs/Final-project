@@ -1,0 +1,116 @@
+﻿@model  Events  
+@using Newtonsoft.Json
+@{
+    ViewBag.Title = "Edit Event";
+    Layout = "~/Views/Shared/_LayoutPage1.cshtml";
+}
+
+<h2>EditEvent</h2>
+
+<main class="login">
+    <div class="container">
+        <div class="login__center">
+
+            <h2 class="login__heading">Event Update</h2>
+
+            @Html.AntiForgeryToken()
+
+
+            @using (Html.BeginForm("EditEvent", "Tr",new { Id = Model.EventID }, FormMethod.Post))
+            {
+                <div class="form-group form-group__label">
+                    @Html.LabelFor(c => c.Subject, "Subject")
+                </div>
+                <div class="form-group">
+                    @Html.TextBoxFor(c => c.Subject, new { type = "text", @class = "form-control", required = "required", @placeholder = "Subject" })
+                    @Html.ValidationMessageFor(c => c.Subject)
+                    <span class="form-icon"></span>
+                </div>
+
+                <div class="form-group form-group__label">
+                    @Html.LabelFor(c => c.Description, "Explanation")
+                </div>
+                <div class="form-group">
+                    @Html.TextBoxFor(c => c.Description, new { type = "text", @class = "form-control", required = "required", @placeholder = "Explanation" })
+                    @Html.ValidationMessageFor(c => c.Description)
+                    <span class="form-icon "></span>
+                </div>
+
+
+                <div class="form-group form-group__label">
+                    @Html.LabelFor(c => c.Start, "Starting Date")
+                </div>
+                <div class="form-group">
+                    <span class="form-group__show-type js-show-type icon-eye"></span>
+                    @Html.TextBoxFor(c => c.Start, "{0:d MMM yyyy}", new { type = "date", @class = "form-control", required = "required", @placeholder = "Starting Date" })
+                    @Html.ValidationMessageFor(c => c.Start)
+                    <span class="form-icon "></span>
+                </div>
+
+                <div class="form-group form-group__label">
+                    @Html.LabelFor(c => c.End, "Deadline")
+                </div>
+                <div class="form-group">
+                    <span class="form-group__show-type js-show-type icon-eye"></span>
+                    @Html.TextBoxFor(c => c.End, "{0:d MMM yyyy}", new { type = "date", @class = "form-control", required = "required", @placeholder = "Deadline" })
+                    @Html.ValidationMessageFor(c => c.End)
+                    <span class="form-icon "></span>
+                </div>
+
+                <div class="form-group form-group__label">
+                    @Html.LabelFor(c => c.ThemeColor, "Calendar Color")
+                </div>
+                <div class="form-group">
+                    <span class="form-group__show-type js-show-type icon-eye"></span>
+                    @Html.TextBoxFor(c => c.ThemeColor, new { type = "text", @class = "form-control", required = "required", @placeholder = "Calendar Color" })
+                    @Html.ValidationMessageFor(c => c.ThemeColor)
+                    <span class="form-icon "></span>
+                </div>
+
+
+                <input id="btnUpdate" type="submit" value="Update"  class="btn btn-primary btn-lg pull-right">
+            }
+            </div>
+    </div>
+
+</main>
+<script type="text/javascript" src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.4.1.min.js"></script>
+<script>
+    // Burada controllerden bu view a gönderdiğimiz modeli Json tipine çeviriyoruz.
+       var model = @Html.Raw(JsonConvert.SerializeObject(this.Model));
+    $(function () {
+        console.log("ready!");
+
+           console.log(model.Start);
+
+        $('#Start').val(model.Start.substring(0,10));
+        $('#End').val(model.End.substring(0,10));
+
+    });
+
+    function updateCont() { // bunu kullanmıyorum beginform çevirdim.
+
+        var updateContentRequestModel = {
+            fieldName: $('#FieldName').val(),
+            languageCode: $('#LanguageCode').val(),
+            identifier: $('#Identifier').val(),
+            contentValue: $('#ContentValue').val()
+        };
+
+
+        $.ajax({
+            url: '/Translate/UpdateContent',
+            contentType: "application/json",
+            data: JSON.stringify(updateContentRequestModel),
+            type: "PUT",
+            success: function (data) {
+                alert(data);
+            },
+            error: function (xhr) {
+                alert('error');
+            }
+        });
+
+    }
+
+</script>

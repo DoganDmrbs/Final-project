@@ -1,0 +1,111 @@
+﻿@model User
+@{
+    ViewBag.Title = "Kayıt Ol";
+    Layout = "~/Views/Shared/_LayoutPage1.cshtml";
+}
+
+<main class="login">
+    <div class="container">
+        <div class="login__center">
+
+            <h2 class="login__heading">Event Ekle</h2>
+
+            @Html.AntiForgeryToken()
+
+        </div>
+    </div>
+
+</main>
+
+<head>
+    <!-- Meta tag Keywords -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="UTF-8" />
+    <!-- //Meta tag Keywords -->
+    <link rel="stylesheet" href="~/Content/css/register.css" type="text/css" media="all" /><!-- Style-CSS -->
+</head>
+
+<!-- /form-26-section -->
+<section class="form-26-1">
+    <div class="form-26-mian">
+        <div class="layer">
+            <div class="wrapper">
+                <div class="form-inner-cont">
+                    <div class="forms-26-info">
+                        <h2>Register</h2>
+                        <p></p>
+                    </div>
+
+                    @Html.AntiForgeryToken()
+
+
+                    @using (Html.BeginForm("SignUp", "Tr", FormMethod.Post))
+                    {
+                        <div class="form-right-inf">
+                            <form action="#" method="post" class="signin-form">
+                                <div class="forms-gds">
+
+                                    <div class="form-group form-group__label">
+                                        @Html.LabelFor(c => c.Name, "Name")
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.TextBoxFor(c => c.Name, new { type = "text", @class = "form-control", required = "required", @placeholder = "Name" })
+                                        @Html.ValidationMessageFor(c => c.Name)
+                                        <span class="form-icon"></span>
+                                    </div><br />
+
+                                    <div class="form-group form-group__label">
+                                        @Html.LabelFor(c => c.Surname, "Surname")
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.TextBoxFor(c => c.Surname, new { type = "text", @class = "form-control", required = "required", @placeholder = "Surname" })
+                                        @Html.ValidationMessageFor(c => c.Surname)
+                                        <span class="form-icon"></span>
+                                    </div><br />
+
+                                    <div class="form-group form-group__label">
+                                        @Html.LabelFor(c => c.Email, "Email")
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.TextBoxFor(c => c.Email, new { type = "text", @class = "form-control", required = "required", @placeholder = "Email" })
+                                        @Html.ValidationMessageFor(c => c.Email)
+                                        <span class="form-icon"></span>
+                                    </div><br />
+
+                                    <div class="form-group form-group__label">
+                                        @Html.LabelFor(c => c.Password, "Password")
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.TextBoxFor(c => c.Password, new { type = "password", @class = "form-control", required = "required", @placeholder = "Password" })
+                                        @Html.ValidationMessageFor(c => c.Password)
+                                        <span class="form-icon"></span>
+                                    </div><br />
+
+
+                                    <div class="form-input"><button class="btn">Signup</button></div>
+                                </div>
+                                <h6 class="already">Already have an account? <a href="/Tr/Login"><span>Login Here<span></span></span></a></h6>
+                            </form>
+
+                        </div>
+                        <div class="copyright text-center">
+
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- //form-26-section -->
+<script type="text/javascript" src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.4.1.min.js"></script>
+<script>
+   $(function () {
+        var message = @Html.Raw(Json.Encode(ViewBag.Message)); // Bu email kullanılıyor hata mesajı
+       console.log(message);
+       if (message != null && message != undefined) {
+            alert(message);
+       }
+
+    });
+</script>

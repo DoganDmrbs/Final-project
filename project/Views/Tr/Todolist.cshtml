@@ -1,0 +1,119 @@
+﻿@*TR controllerden gönderdiğimiz event listesini modelde karşılıyoruz.*@
+@model List<Events>
+@{
+    ViewBag.Title = "To-Do List";
+    Layout = "~/Views/Shared/_LayoutPage1.cshtml";
+}
+
+<h2>Todolist</h2>
+<html>
+<head>
+    @*Yeni kayıt sayfasını açar*@
+    <input id="btnNew" value="New Note" onclick="location.href='@Url.Action("GetCreateEvent", "Tr")'" class="btn btn-primary">
+</head>
+<body>
+    @*Gelen model listesi boş değil ve 0 dan büyük datası varsa tablo oluşturur.*@
+    @if (Model != null && Model.Count > 0)
+    {
+
+        <table class="table">
+            <tr>
+                <th>
+                    Subject
+                </th>
+                <th>
+                    Description
+                </th>
+                <th>
+                    StartDate
+                </th>
+                <th>
+                    EndDate
+                </th>
+                <th>
+                    ThemeColour
+                </th>
+                <th>
+                    Update
+                </th>
+                <th>
+                    Delete
+                </th>
+            </tr>
+
+
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(i => item.Subject)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(i => item.Description)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(i => item.Start)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(i => item.End)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(i => item.ThemeColor)
+                    </td>
+                    <td>
+                        @*Butona tıkladığında Tr controlları geteditevent get actionuna eventin id si ile request atılır.*@ 
+                        <input id="btnUpdate" value="Update" onclick="location.href='@Url.Action("GetEditEvent", "Tr",new { Id=item.EventID})'" class="btn btn-primary">
+                    </td>
+                    <td>
+                        <input id="btnUpdate" value="Delete" onclick="location.href='@Url.Action("DeleteEvent", "Tr",new { Id=item.EventID})'" class="btn btn-primary">
+                    </td>
+
+                </tr>
+
+
+            }
+        </table>
+    }
+
+
+
+
+    <script src="/Scripts/jquery-1.10.2.js"></script>
+
+    <script src="/Scripts/bootstrap.js"></script>
+    <script type="text/javascript" src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.4.1.min.js"></script>
+    <script>
+
+    function detailEdit(editEvent) {
+        $.ajax({
+            url: '@Url.Action("GetEditEvent", "Tr")',
+             contentType: "application/json; charset=utf-8",
+            data: { id: editEvent},
+            success: function (data) {
+                alert(data);
+            },
+            error: function (xhr) {
+                alert('error');
+            }
+        });
+    }
+
+
+
+       function detailDelete(editEvent) {
+        $.ajax({
+            url: '@Url.Action("DeleteEvent", "Tr")',
+             contentType: "application/json; charset=utf-8",
+            data: { id: editEvent},
+            success: function (data) {
+                alert(data);
+            },
+            error: function (xhr) {
+                alert('error');
+            }
+        });
+    }
+
+    </script>
+</body>
+</html>

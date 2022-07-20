@@ -1,0 +1,77 @@
+﻿@model User
+@{
+    ViewBag.Title = "Giriş Yap";
+    Layout = "~/Views/Shared/_LayoutPage1.cshtml";
+}
+<html>
+<head>
+    <link rel="stylesheet" href="~/Content/css/login.css" type="text/css" media="all" />
+</head>
+<body>
+    <section class="form-26">
+        <div class="form-26-mian">
+            <div class="layer">
+                <div class="wrapper">
+                    <div class="form-inner-cont">
+                        <div class="forms-26-info">
+                            <h2>Login</h2>
+                            <p></p>
+                        </div>
+                        @Html.AntiForgeryToken()
+
+
+                        @using (Html.BeginForm("Login", "Tr", FormMethod.Post))
+                        {
+                            <div class="form-right-inf">
+                                <form action="#" method="post" class="signin-form">
+                                    <div class="forms-gds">
+
+                                        <div class="form-group form-group__label">
+                                            @Html.LabelFor(c => c.Email, "Name")
+                                        </div>
+                                        <div class="form-group">
+                                            @Html.TextBoxFor(c => c.Email, new { type = "text", @class = "form-control", required = "required", @placeholder = "Email" })
+                                            @Html.ValidationMessageFor(c => c.Email)
+                                            <span class="form-icon"></span>
+                                        </div><br />
+
+                                        <div class="form-group form-group__label">
+                                            @Html.LabelFor(c => c.Password, "Password")
+                                        </div>
+                                        <div class="form-group">
+                                            @Html.TextBoxFor(c => c.Password, new { type = "password", @class = "form-control", required = "required", @placeholder = "Password" })
+                                            @Html.ValidationMessageFor(c => c.Password)
+                                            <span class="form-icon"></span>
+                                        </div><br />
+
+                                        <div class="form-input"><button class="btn">Login</button></div>
+
+                                    </div>
+                                    <h6 class="already"> Dont have an account? <a href='@Url.Action("Register", "Tr")'><span>Register Here<span></span></span></a></h6>
+
+                                </form>
+
+                            </div>
+                        }
+                        <div class="copyright text-center">
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script type="text/javascript" src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.4.1.min.js"></script>
+    <script>
+    $(function () {
+           var message = @Html.Raw(Json.Encode(ViewBag.Message)); // hatalı giriş yaparsak, giriş başarısız mesajı 
+       console.log(message);
+       if (message != null && message != undefined) {
+            alert(message);
+       }
+    });
+    </script>
+</body>
+</html>

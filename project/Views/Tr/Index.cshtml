@@ -1,0 +1,84 @@
+﻿@{
+    ViewBag.Title = "Lefke Online Diary";
+    Layout = "~/Views/Shared/_LayoutPage1.cshtml";
+}
+<!DOCTYPE html>
+<html>
+<head>
+
+</head>
+
+<body>
+    <!-- wrapper -->
+    <div class="wrapper">
+        <!-- banner -->
+        <div class="banner">
+            <div class="container">
+                <!-- banner content -->
+                <div class="banner-content">
+                    <!-- logo image -->
+                    <img src="~/Content/images/index.jpg">
+                    <!-- short paragraph -->
+                    <p><h3>Take notes without increasing your productivity, reducing your stress, or forgetting anything in your mind.</h3></p>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <br />
+    <!-- feature block -->
+    <div class="feature">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 col-sm-4">
+                    <!-- feature item -->
+                    <div class="feature-item">
+                        <!-- icon <i class="fa fa-crosshairs"></i>    -->
+                        <img src="~/Content/images/todolist.jpg" width="300" height="300">
+                        <!-- heading -->
+                        <h4>To Do List</h4>
+                        <!-- paragraph -->
+                        <p>Take notes without increasing your productivity,<br /> reducing your stress, or forgetting anything in your mind.</p>
+                    </div>
+                </div>
+                <div class="col-md-4 col-sm-4">
+                    <!-- feature item -->
+                    <div class="feature-item">
+                        <!-- icon <i class="fa fa-sitemap"></i> -->
+                        <img src="~/Content/images/calendar.jpg" width="300" height="300">
+                        <!-- heading -->
+                        <h4>Calendar Design</h4>
+                        <!-- paragraph -->
+                        <p>See your lists on the calendar. Organize your life.</p>
+                    </div>
+                </div>
+                <div class="col-md-4 col-sm-4">
+                    <!-- feature item -->
+                    <div class="feature-item">
+                        <!-- icon <i class="fa fa-terminal"></i> -->
+
+                        <img src="~/Content/images/belge.jpg" width="300" height="300">
+
+                        <!-- heading -->
+                        <h4>Document Control</h4>
+                        <!-- paragraph -->
+                        <p>Save your documents. It offers easy access <br /> to your documents.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+
+<script type="text/javascript" src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.4.1.min.js"></script>
+<script>
+    // controller üzerinden viewbag mesajı gönderdigimizde bunu json modeline çevirip alert olarak basıyoruz.
+    $(function () {
+           var message = @Html.Raw(Json.Encode(ViewBag.Message)); 
+       console.log(message);
+       if (message != null && message != undefined) {
+            alert(message);
+       }
+    });
+</script>

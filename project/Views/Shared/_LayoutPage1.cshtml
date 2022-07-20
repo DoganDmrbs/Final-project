@@ -1,0 +1,66 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - LAU</title> <!-- Dinamik şekilde güncel sayfa ismini beowser title'na basar.  -->
+    <link href="~/Content/Site.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <script src="~/Scripts/modernizr-2.6.2.js"></script>
+</head>
+<body>
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                @Html.ActionLink("Online Diary ", "Index", "Tr", new { area = "" }, new { @class = "navbar-brand" }) 
+    <!-- Baştaki ordaki yaznın ne olacağını belirler. 2. action 3. conroller ismi 4. parametre 5. bulunan butonun html class adı. -->
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <!-- Baştaki ne yazması istenen 2. action  3. control -->
+                    <li>@Html.ActionLink("Home", "Index", "Tr")</li>
+                    <li>@Html.ActionLink("About", "About", "Tr")</li>
+                    <li>@Html.ActionLink("Contact", "Contact", "Tr")</li>
+                    <li>@Html.ActionLink("Calendar", "Calendar", "Tr")</li>
+                    <li>@Html.ActionLink("Todolist", "Todolist", "Tr")</li>
+
+
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    @{
+                        <!-- section içine key vererek bir obje atıyoruz controller da buradada onu okuyoruz dolumu boşmu diye. -->
+                        <!-- giriş yapıp yapmadığını kontrol ediyo -->
+                        User currentUser = (User)Session["CurrentUser"];
+                        if (currentUser == null)
+                        {
+                            <li><a href="/Tr/Register" id="registerLink">Register</a></li>
+                            <li><a href="/Tr/Login" id="loginLink">Log in</a></li>
+                        }
+                        else
+                        {
+                            <li><span style="background-color:white">Welcome @currentUser.Name</span></li>
+                            <li><a href="/Tr/Logout" id="logoutLink">Log Out</a></li>
+                        }
+                    }
+                </ul>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="container body-content">
+
+       @*RenderBody dediğimiz bu layout'u kullanan bütün view'ların bu alanda yani div içinde gözükmesidir. *@
+
+        @RenderBody()
+    </div>   
+    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    @RenderSection("Scripts", false)
+</body>
+</html>
